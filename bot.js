@@ -185,3 +185,6 @@ function formatUptime(uptime) {
     uptime = uptime + ' ' + unit;
     return uptime;
 }
+
+
+require('./plugin/cron')(bot);
