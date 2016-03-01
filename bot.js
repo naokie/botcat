@@ -135,6 +135,15 @@ function formatUptime(uptime) {
 require('./plugins/cron')(bot);
 
 
+controller.hears(['ggr (.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
+    var matches = message.text.match(/ggr (.*)/i);
+    var name = matches[1];
+    var res = matches[1].replace(' ', '+');
+
+    bot.reply(message, 'っ [ https://www.google.co.jp/search?q=' + res + ' ]');
+});
+
+
 http.createServer(function(request, response) {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.end('Ok, dyno is awake.');
