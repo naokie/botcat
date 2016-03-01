@@ -71,6 +71,7 @@ if (!process.env.token) {
 
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
+var http = require('http');
 
 var controller = Botkit.slackbot({
     debug: true,
@@ -188,3 +189,9 @@ function formatUptime(uptime) {
 
 
 require('./plugins/cron')(bot);
+
+
+http.createServer(function(request, response) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.end('Ok, dyno is awake.');
+}).listen(process.env.PORT || 5000);
