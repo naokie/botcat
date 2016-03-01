@@ -187,4 +187,4 @@ function formatUptime(uptime) {
 }
 
 
-require('./plugin/cron')(bot);
+require('./plugins/cron')(bot);
