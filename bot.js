@@ -142,6 +142,27 @@ controller.hears(['ggr (.*)'], 'direct_message,direct_mention,mention,ambient', 
 });
 
 
+controller.hears(['/(っぽい|だろう|かも|そうそう)/'], 'ambient', function(bot, message) {
+    bot.reply(message, '(´・ω・｀) そっかー');
+});
+
+controller.hears(['/忙し/'], 'ambient', function(bot, message) {
+    bot.reply(message, '(つ∀｀*)　気のせいだっ)たらいいのに～！');
+});
+
+controller.hears(['/ぐへへ/'], 'ambient', function(bot, message) {
+    bot.reply(message, '(〃ﾉωﾉ)ｲﾔﾝ');
+});
+
+controller.hears(['/たい$/'], 'ambient', function(bot, message) {
+    bot.reply(message, 'd(´ー｀*) だねぇ');
+});
+
+controller.hears(['/(眠|ねむ)い/'], 'ambient', function(bot, message) {
+    bot.reply(message, ':monster: 三');
+});
+
+
 function random(items) {
     return items[Math.floor(Math.random() * items.length)];
 };
