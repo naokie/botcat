@@ -142,10 +142,10 @@ controller.hears(['ggr (.*)'], 'direct_message,direct_mention,mention,ambient', 
 });
 
 
-new CronJob('0 * * * * 1-5', function() {
+new CronJob('0 0 10 * * 1-5', function() {
     bot.say({
         text: 'ﾈﾑｲ(´･ωゞ)',
-        channel: 'shibuya'
+        channel: 'C02GLQNHR'
     });
 }, null, true, 'Asia/Tokyo');
 
