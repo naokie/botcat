@@ -142,9 +142,20 @@ controller.hears(['ggr (.*)'], 'direct_message,direct_mention,mention,ambient', 
 });
 
 
+function random(items) {
+    return items[Math.floor(Math.random() * items.length)];
+};
+
 new CronJob('0 0 10 * * 1-5', function() {
+    var list = [
+        'http://i.imgur.com/TaD84Sw.jpg',
+        'http://i.imgur.com/M5tqTz0.jpg',
+        'ﾈﾑｲ(´･ωゞ)',
+        ':syuzo: :syuzo: :syuzo:'
+    ];
+
     bot.say({
-        text: 'ﾈﾑｲ(´･ωゞ)',
+        text: random(list),
         channel: 'C02GLQNHR'
     });
 }, null, true, 'Asia/Tokyo');
