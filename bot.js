@@ -16,6 +16,7 @@ if (!process.env.token) {
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
 var http = require('http');
+var CronJob = require('cron').CronJob;
 
 var controller = Botkit.slackbot({
     debug: true,
@@ -132,9 +133,6 @@ function formatUptime(uptime) {
 }
 
 
-require('./plugins/cron')(bot);
-
-
 controller.hears(['ggr (.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
     var matches = message.text.match(/ggr (.*)/i);
     var name = matches[1];
@@ -142,6 +140,14 @@ controller.hears(['ggr (.*)'], 'direct_message,direct_mention,mention,ambient', 
 
     bot.reply(message, 'っ [ https://www.google.co.jp/search?q=' + res + ' ]');
 });
+
+
+new CronJob('0 * * * * 1-5', function() {
+    bot.say({
+        text: 'ﾈﾑｲ(´･ωゞ)',
+        channel: 'shibuya'
+    });
+}, null, true, 'Asia/Tokyo');
 
 
 http.createServer(function(request, response) {
