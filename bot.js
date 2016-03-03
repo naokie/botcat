@@ -16,6 +16,8 @@ if (!process.env.token) {
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
 var http = require('http');
+var path = require('path');
+var fs = require('fs');
 var CronJob = require('cron').CronJob;
 
 var controller = Botkit.slackbot({
@@ -25,6 +27,14 @@ var controller = Botkit.slackbot({
 var bot = controller.spawn({
     token: process.env.token
 }).startRTM();
+
+var pluginsPath = path.resolve(__dirname, 'plugins');
+fs.readdir(pluginsPath, function(err, list) {
+    for (var file of list) {
+        var pluginPath = path.resolve(pluginsPath, file);
+        require(pluginPath)(controller);
+    }
+});
 
 
 controller.hears(['hello', 'hi', 'こんにちわ', 'おはよう'], 'direct_message,direct_mention,mention', function(bot, message) {
@@ -131,36 +141,6 @@ function formatUptime(uptime) {
     uptime = uptime + ' ' + unit;
     return uptime;
 }
-
-
-controller.hears(['ggr (.*)'], 'direct_message,direct_mention,mention,ambient', function(bot, message) {
-    var matches = message.text.match(/ggr (.*)/i);
-    var name = matches[1];
-    var res = matches[1].replace(' ', '+');
-
-    bot.reply(message, 'っ [ https://www.google.co.jp/search?q=' + res + ' ]');
-});
-
-
-controller.hears(['(っぽい|だろう|かも|そうそう)'], 'ambient', function(bot, message) {
-    bot.reply(message, '(´・ω・｀) そっかー');
-});
-
-controller.hears(['忙し'], 'ambient', function(bot, message) {
-    bot.reply(message, '(つ∀｀*)　気のせいだっ)たらいいのに～！');
-});
-
-controller.hears(['ぐへへ'], 'ambient', function(bot, message) {
-    bot.reply(message, '(〃ﾉωﾉ)ｲﾔﾝ');
-});
-
-controller.hears(['たい$'], 'ambient', function(bot, message) {
-    bot.reply(message, 'd(´ー｀*) だねぇ');
-});
-
-controller.hears(['(眠|ねむ)い'], 'ambient', function(bot, message) {
-    bot.reply(message, ':monster: 三');
-});
 
 
 function random(items) {
