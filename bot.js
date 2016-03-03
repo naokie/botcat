@@ -18,7 +18,6 @@ var os = require('os');
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
-var CronJob = require('cron').CronJob;
 
 var controller = Botkit.slackbot({
     debug: true,
@@ -35,6 +34,8 @@ fs.readdir(pluginsPath, function(err, list) {
         require(pluginPath)(controller);
     }
 });
+
+require('./cron/wakeup')(bot);
 
 
 controller.hears(['hello', 'hi', 'こんにちわ', 'おはよう'], 'direct_message,direct_mention,mention', function(bot, message) {
@@ -141,25 +142,6 @@ function formatUptime(uptime) {
     uptime = uptime + ' ' + unit;
     return uptime;
 }
-
-
-function random(items) {
-    return items[Math.floor(Math.random() * items.length)];
-};
-
-new CronJob('0 0 10 * * 1-5', function() {
-    var list = [
-        'http://i.imgur.com/TaD84Sw.jpg',
-        'http://i.imgur.com/M5tqTz0.jpg',
-        'ﾈﾑｲ(´･ωゞ)',
-        ':syuzo: :syuzo: :syuzo:'
-    ];
-
-    bot.say({
-        text: random(list),
-        channel: 'C02GLQNHR'
-    });
-}, null, true, 'Asia/Tokyo');
 
 
 http.createServer(function(request, response) {
