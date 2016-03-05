@@ -14,12 +14,23 @@ if (!process.env.token) {
 }
 
 var Botkit = require('./lib/Botkit.js');
+var redis = require('./lib/storage/redis_storage.js');
 var os = require('os');
 var http = require('http');
 var path = require('path');
 var fs = require('fs');
+var url = require('url');
+
+var redisURL = url.parse(process.env.REDISCLOUD_URL);
+var redisStorage = redis({
+    namespace: 'botcat',
+    host: redisURL.hostname,
+    port: redisURL.port,
+    auth_pass: redisURL.auth.split(':')[1],
+});
 
 var controller = Botkit.slackbot({
+    storage: redisStorage,
     debug: true,
 });
 
