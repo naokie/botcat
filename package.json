@@ -5,6 +5,7 @@
   "main": "lib/Botkit.js",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "cheerio": "0.20.0",
     "cron": "1.1.0",
     "express": "^4.13.3",
     "jfs": "^0.2.6",
