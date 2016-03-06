@@ -1,5 +1,8 @@
 module.exports = function(controller) {
     controller.hears(['(っぽい|だろう|かも|そうそう)'], ['direct_message', 'ambient'], function(bot, message) {
+        var p = parseFloat('0.3');
+        if (Math.random() < p) return;
+
         bot.reply(message, '(´・ω・｀) そっかー');
     });
 
@@ -12,6 +15,9 @@ module.exports = function(controller) {
     });
 
     controller.hears(['たい$'], ['direct_message', 'ambient'], function(bot, message) {
+        var p = parseFloat(process.env.DOCOMO_DIALOGUE_P || '0.5');
+        if (Math.random() < p) return;
+
         bot.reply(message, 'd(´ー｀*) だねぇ');
     });
 
