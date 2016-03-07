@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports = function(controller) {
-    controller.hears(['.+'], ['direct_message', 'ambient'], function(bot, message) {
+    controller.hears(['.+'], ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
         if (!process.env.DOCOMO_DIALOGUE_API_KEY) return;
 
         var p = parseFloat(process.env.DOCOMO_DIALOGUE_P || '0.3');
