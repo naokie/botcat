@@ -5,13 +5,19 @@ module.exports = function(controller) {
         if (!process.env.DOCOMO_DIALOGUE_API_KEY) return;
 
         var p = parseFloat(process.env.DOCOMO_DIALOGUE_P || '0.3');
-        if (Math.random() < p) return;
+        if (Math.random() < p) {
+            bot.reply(message, 'ニャン');
+            return;
+        }
 
         var matches = message.text.match(/(.+)/i);
-        bot.api.users.info({user:message.user},function(error,response){
-            if(error){
+
+        bot.api.users.info({
+            user: message.user
+        }, function(error, response) {
+            if (error) {
                 console.log(error);
-            }else{
+            } else {
                 var payload = {
                     utt: matches[0],
                     nickname: response.user.name
