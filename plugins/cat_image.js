@@ -53,4 +53,18 @@ module.exports = function(controller) {
             }
         });
     });
+
+    controller.hears(['^neko count'], ['direct_message', 'ambient'], function(bot, message) {
+        controller.storage.channels.all(function(err, res) {
+            if (!err) {
+                var catList = _.filter(res, function(o) {
+                    return (!!o.cat);
+                });
+
+                bot.reply(message, ':cat2: ' + catList.length + '匹ニャ');
+            } else {
+                console.log(err);
+            }
+        });
+    });
 };
