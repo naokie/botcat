@@ -54,6 +54,14 @@ module.exports = function(controller) {
         });
     });
 
+    controller.hears(['^neko dump'], ['direct_message', 'ambient'], function(bot, message) {
+        controller.storage.channels.all(function(err, res) {
+            if (!err) {
+                bot.reply(message, JSON.stringify(res));
+            }
+        });
+    });
+
     controller.hears(['^neko count'], ['direct_message', 'ambient'], function(bot, message) {
         controller.storage.channels.all(function(err, res) {
             if (!err) {
