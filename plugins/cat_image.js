@@ -67,4 +67,17 @@ module.exports = function(controller) {
             }
         });
     });
+    
+    controller.hears(['^neko all-dump'], ['direct_message', 'ambient'], function(bot, message) {
+        controller.storage.channels.all(function(err, res) {
+            if (!err) {
+                var dump = "";
+                dump = JSON.stringify(res);
+
+                bot.reply(message, ':cat2: ' + dump);
+            } else {
+                console.log(err);
+            }
+        });
+    });
 };
