@@ -67,4 +67,47 @@ module.exports = function(controller) {
             }
         });
     });
+    
+    controller.hears(['^neko all-dump'], ['direct_message', 'ambient'], function(bot, message) {
+        controller.storage.channels.all(function(err, res) {
+            if (!err) {
+                var dump = "";
+                dump = JSON.stringify(res);
+
+                bot.reply(message, ':cat2: ' + dump);
+            } else {
+                console.log(err);
+            }
+        });
+    });
+
+    controller.hears(['^neko remove'],['direct_message','ambient'],function(bot, message){
+        controller.storage.channels.all(function(err, res) {
+            if(!err){
+                var catList = _.filter(res, function(o) {
+                    return (!!o.cat);
+                });
+                
+                var deletedUrlList = "";
+                _.each(catList, function(cat){
+                    http.get(cat.url, function(res){
+                        if(res.statusCode != 200){
+                            controller.storage.channels.delete(cat,function(err,res){
+                                if(!err){
+                                    message += cat.url + '\n';
+                                }else{
+                                    console.log(err);
+                                }
+                            });
+                        }
+                    }).on('error',function(e){
+                        console.log(e.message);
+                    });
+                });
+                bot.reply(message, ':cat2: ' + deletedUrlList + '\nを削除したニャン');
+            }else{
+                console.log(err);
+            }
+        });
+    });
 };
