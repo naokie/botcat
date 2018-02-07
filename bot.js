@@ -7,7 +7,6 @@
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-
 if (!process.env.token) {
     console.log('Error: Specify token in environment');
     process.exit(1);
@@ -21,6 +20,11 @@ var path = require('path');
 var fs = require('fs');
 var url = require('url');
 
+var NODE_ENV = process.env.NODE_ENV || 'development';
+
+console.log(NODE_ENV);
+console.log(NODE_ENV === 'development');
+
 var redisURL = url.parse(process.env.REDISCLOUD_URL);
 var redisStorage = redis({
     namespace: 'botcat',
@@ -31,7 +35,7 @@ var redisStorage = redis({
 
 var controller = Botkit.slackbot({
     storage: redisStorage,
-    debug: false,
+    debug: NODE_ENV === 'development',
 });
 
 var bot = controller.spawn({
