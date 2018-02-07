@@ -12,8 +12,8 @@ if (!process.env.token) {
     process.exit(1);
 }
 
-var Botkit = require('./lib/Botkit.js');
-var redis = require('./lib/storage/redis_storage.js');
+var Botkit = require('botkit');
+var redis = require('botkit-storage-redis');
 var os = require('os');
 var http = require('http');
 var path = require('path');
