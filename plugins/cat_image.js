@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var http = require('http');
 
 var uuid = function() {
     var uuid = '', i, random;
@@ -72,9 +73,9 @@ module.exports = function(controller) {
         controller.storage.channels.all(function(err, res) {
             if (!err) {
                 var dump = "";
-                dump = JSON.stringify(res);
+                dump = JSON.stringify(res,null,2);
 
-                bot.reply(message, ':cat2: ' + dump);
+                bot.reply(message, ':cat2: ```' + dump + '```');
             } else {
                 console.log(err);
             }
