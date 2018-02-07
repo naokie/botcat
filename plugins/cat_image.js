@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var http = require('http');
 
 var uuid = function() {
     var uuid = '', i, random;
