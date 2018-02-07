@@ -72,9 +72,9 @@ module.exports = function(controller) {
         controller.storage.channels.all(function(err, res) {
             if (!err) {
                 var dump = "";
-                dump = JSON.stringify(res);
+                dump = JSON.stringify(res,null,2);
 
-                bot.reply(message, ':cat2: ' + dump);
+                bot.reply(message, ':cat2: ```' + dump + '```');
             } else {
                 console.log(err);
             }
