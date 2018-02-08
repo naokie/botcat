@@ -116,7 +116,7 @@ module.exports = function(controller) {
         _.each(catList, function(cat) {
           request
             .get(cat.url, function(error, response, body) {
-              if (response.statusCode != 200) {
+              if (!_.isNull(error) || response.statusCode != 200) {
                 controller.storage.channels.remove(cat, function(err, res) {
                   if (!err) {
                     message += cat.url + "\n";
