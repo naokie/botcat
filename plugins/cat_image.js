@@ -1,5 +1,5 @@
 var _ = require("lodash");
-var http = require("http");
+var request = require("request");
 
 var uuid = function() {
   var uuid = "",
@@ -114,9 +114,9 @@ module.exports = function(controller) {
 
         var deletedUrlList = "";
         _.each(catList, function(cat) {
-          http
-            .get(cat.url, function(res) {
-              if (res.statusCode != 200) {
+          request
+            .get(cat.url, function(error, response, body) {
+              if (response.statusCode != 200) {
                 controller.storage.channels.remove(cat, function(err, res) {
                   if (!err) {
                     message += cat.url + "\n";
