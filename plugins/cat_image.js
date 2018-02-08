@@ -117,7 +117,7 @@ module.exports = function(controller) {
           http
             .get(cat.url, function(res) {
               if (res.statusCode != 200) {
-                controller.storage.channels.delete(cat, function(err, res) {
+                controller.storage.channels.remove(cat, function(err, res) {
                   if (!err) {
                     message += cat.url + "\n";
                   } else {
