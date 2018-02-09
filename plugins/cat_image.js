@@ -111,24 +111,20 @@ module.exports = function(controller) {
         var catList = _.filter(res, function(o) {
           return !!o.cat;
         });
-
+        
         var deletedUrlList = "";
         _.each(catList, function(cat) {
           request
-            .get(cat.url, function(error, response, body) {
-              if (!_.isNull(error) || response.statusCode != 200) {
-                controller.storage.channels.remove(cat, function(err, res) {
-                  if (!err) {
-                    message += cat.url + "\n";
-                  } else {
-                    console.error(err);
-                  }
-                });
-              }
+            .get(cat.url, function(error, response, body) { 
+              if (!error && response.statusCode === 200) return;
+              controller.storage.channels.remove(cat, function(err, res) {
+                if (!err) {
+                  message += cat.url + "\n";
+                } else {
+                  console.error(err);
+                }
+              });
             })
-            .on("error", function(e) {
-              console.error(e.message);
-            });
         });
         bot.reply(message, ":cat2: " + deletedUrlList + "\nを削除したニャン");
       } else {
