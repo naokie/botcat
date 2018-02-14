@@ -39,7 +39,7 @@ module.exports = function(controller) {
         if (!err) {
           bot.reply(message, "(ΦωΦ) ニャン (ID: " + cat.id + ")");
         } else {
-          console.log(err);
+          console.error(err);
         }
       });
     }
@@ -73,7 +73,6 @@ module.exports = function(controller) {
     message
   ) {
     controller.storage.channels.all(function(err, res) {
-      console.log(res);
       if (!err) {
         var catList = _.filter(res, function(o) {
           return !!o.cat;
@@ -111,20 +110,19 @@ module.exports = function(controller) {
         var catList = _.filter(res, function(o) {
           return !!o.cat;
         });
-        
+
         var deletedUrlList = "";
         _.each(catList, function(cat) {
-          request
-            .get(cat.url, function(error, response, body) { 
-              if (!error && response.statusCode === 200) return;
-              controller.storage.channels.remove(cat, function(err, res) {
-                if (!err) {
-                  message += cat.url + "\n";
-                } else {
-                  console.error(err);
-                }
-              });
-            })
+          request.get(cat.url, function(error, response) {
+            if (!error && response.statusCode === 200) return;
+            controller.storage.channels.remove(cat, function(err) {
+              if (!err) {
+                message += cat.url + "\n";
+              } else {
+                console.error(err);
+              }
+            });
+          });
         });
         bot.reply(message, ":cat2: " + deletedUrlList + "\nを削除したニャン");
       } else {

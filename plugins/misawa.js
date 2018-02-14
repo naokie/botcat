@@ -3,7 +3,7 @@ var request = require("request");
 
 var ERROR_MSG = "へんじがないただのしかばねのようだ";
 
-var misawa = function(bot, message, keyword) {
+var misawa = function(bot, message) {
   request.get("http://horesase.github.io/horesase-boys/meigens.json", function(
     error,
     response,

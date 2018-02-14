@@ -11,7 +11,7 @@ module.exports = function(controller) {
           channel: message.channel,
           name: "robot_face"
         },
-        function(err, res) {
+        function(err) {
           if (err) {
             bot.botkit.log("Failed to add emoji reaction :(", err);
           }
@@ -41,7 +41,7 @@ module.exports = function(controller) {
           };
         }
         user.name = name;
-        controller.storage.users.save(user, function(err, id) {
+        controller.storage.users.save(user, function() {
           bot.reply(
             message,
             "Got it. I will call you " + user.name + " from now on."

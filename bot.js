@@ -8,13 +8,12 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 if (!process.env.token) {
-  console.log("Error: Specify token in environment");
+  console.error("Error: Specify token in environment");
   process.exit(1);
 }
 
 var Botkit = require("botkit");
 var redis = require("botkit-storage-redis");
-var os = require("os");
 var http = require("http");
 var path = require("path");
 var fs = require("fs");
