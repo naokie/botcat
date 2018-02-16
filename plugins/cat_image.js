@@ -39,7 +39,7 @@ module.exports = function(controller) {
         if (!err) {
           bot.reply(message, "(ΦωΦ) ニャン (ID: " + cat.id + ")");
         } else {
-          console.log(err);
+          console.error(err);
         }
       });
     }
@@ -111,7 +111,7 @@ module.exports = function(controller) {
           return !!o.cat;
         });
         var removeCat = function(cat) {
-          controller.storage.channels.remove(cat.id, function(err, res) {
+          controller.storage.channels.remove(cat.id, function(err) {
             if (!err) {
               bot.reply(
                 message,

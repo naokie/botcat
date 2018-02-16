@@ -21,7 +21,7 @@ module.exports = function(controller) {
         },
         function(error, response) {
           if (error) {
-            console.log(error);
+            console.error(error);
           } else {
             var payload = {
               utt: matches[0],
@@ -40,7 +40,7 @@ module.exports = function(controller) {
                 if (!error && response.statusCode == 200) {
                   bot.reply(message, body.utt);
                 } else {
-                  console.log(error);
+                  console.error(error);
                 }
               }
             );
