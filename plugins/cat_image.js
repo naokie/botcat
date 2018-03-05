@@ -58,7 +58,23 @@ module.exports = function(controller) {
         );
 
         if (pickedRecord && pickedRecord.cat) {
-          bot.reply(message, pickedRecord.cat.url);
+          bot.reply(message, {
+            text: pickedRecord.cat.url,
+            attachments: [
+              {
+                callback_id: "delete_callback",
+                attachment_type: "default",
+                actions: [
+                  {
+                    name: "delete",
+                    value: pickedRecord.cat.id,
+                    text: "delete",
+                    type: "button"
+                  }
+                ]
+              }
+            ]
+          });
         } else {
           bot.reply(message, "(ΦωΦ) 猫いない");
         }
@@ -66,6 +82,19 @@ module.exports = function(controller) {
         console.error(err);
       }
     });
+  });
+
+  controller.on("interactive_message_callback", function(bot, message) {
+    if (message.callback_id === "delete_callback") {
+      var catId = message.actions[0].value;
+      controller.storage.channels.remove(catId, function(err) {
+        if (!err) {
+          bot.reply(message, ":cat2: 削除したニャン");
+        } else {
+          console.error(err);
+        }
+      });
+    }
   });
 
   controller.hears(["^neko count"], ["direct_message", "ambient"], function(
