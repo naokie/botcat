@@ -11,7 +11,6 @@ module.exports = function(bot) {
       var list = [
         "http://i.imgur.com/TaD84Sw.jpg",
         "http://i.imgur.com/M5tqTz0.jpg",
-        "https://scontent-sea1-1.cdninstagram.com/t51.2885-15/e35/19436764_645907692286091_6621865046647504896_n.jpg",
         "https://i.pinimg.com/originals/53/a8/1c/53a81ce030957de6f3127c689956bc64.jpg",
         "ﾈﾑｲ(´･ωゞ)",
         ":syuzo: :syuzo: :syuzo:"
